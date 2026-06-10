@@ -3,250 +3,135 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>La Varita · Programa de Lealtad — Concepto de aplicación</title>
-<meta name="description" content="Concepto de la aplicación de lealtad de La Varita — chicharrón de pollo y costillas asadas a la vara en Ponce, Puerto Rico. Tarjeta de sellos digital, especiales por push e integración con Clover." />
+<title>La Varita · Pollo y costillas a la vara — Próximamente en Ponce</title>
+<meta name="description" content="La Varita — pollo y costillas asados a la vara, sabor puertorriqueño con tradición. Próximamente en Plaza del Caribe, Ponce. Únete y recibe nuestros especiales y el programa de lealtad." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23262626'/%3E%3Cpath d='M16 6 C13 12 19 13 16 19 C20 17 21 11 16 6 Z' fill='%23D7490A'/%3E%3Cpath d='M9 23 L23 21 M10 25 L22 24' stroke='%23E9C290' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Official La Varita palette */
-    --paper:#EDE4D1;        /* warm kraft paper */
-    --paper-2:#E9C290;      /* crema */
+    --paper:#EDE4D1;       /* warm kraft paper */
+    --paper-2:#E9C290;     /* crema */
     --cream:#F6EFDF;
-    --ink:#262626;          /* carbón */
+    --ink:#262626;         /* carbón */
     --ink-soft:#5A4A3C;
-    --clay:#D7490A;         /* candela (burnt orange) */
-    --ember:#F69A49;        /* masa (warm orange) */
-    --oxblood:#B12128;      /* achiote (brick red) */
-    --olive:#3D5633;        /* olivo */
+    --clay:#D7490A;        /* candela */
+    --ember:#F69A49;       /* masa */
+    --oxblood:#B12128;     /* achiote */
+    --olive:#3D5633;       /* olivo */
     --hair:rgba(38,38,38,.2);
     --maxw:1280px;
     --gut:clamp(18px,4.5vw,72px);
     --serif:"Fraunces",Georgia,serif;
     --mono:"Space Mono","SFMono-Regular",monospace;
   }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
-
   body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--serif);
-    font-optical-sizing:auto;
-    font-weight:400;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    position:relative;
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-optical-sizing:auto;font-weight:400;line-height:1.5;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;
   }
-
-  /* paper grain overlay — kills the flat/digital look */
-  .grain{
-    position:fixed;inset:0;z-index:9999;pointer-events:none;
-    opacity:.05;mix-blend-mode:multiply;
-  }
-
+  .grain{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:multiply;}
   ::selection{background:var(--ember);color:var(--ink);}
-
   a{color:inherit;}
-
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gut);}
-
   .mono{font-family:var(--mono);}
-  .kicker{
-    font-family:var(--mono);
-    font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
-    color:var(--oxblood);
-    display:inline-flex;align-items:center;gap:.7em;
-  }
+  .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--oxblood);display:inline-flex;align-items:center;gap:.7em;}
   .kicker::before{content:"";width:26px;height:1px;background:var(--oxblood);display:inline-block;}
 
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:.95em 1.5em;border-radius:3px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:transform .15s,background .2s,color .2s;}
+  .btn.primary{background:var(--ink);color:var(--cream);}
+  .btn.primary:hover{background:var(--oxblood);border-color:var(--oxblood);transform:translateY(-2px);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn.ghost:hover{background:var(--ink);color:var(--cream);transform:translateY(-2px);}
+
   /* ---------- top bar ---------- */
-  .topbar{
-    position:sticky;top:0;z-index:200;
-    background:rgba(239,227,204,.86);
-    backdrop-filter:saturate(140%) blur(6px);
-    border-bottom:1px solid var(--hair);
-  }
-  .topbar .wrap{
-    display:flex;align-items:center;justify-content:space-between;
-    height:54px;
-    font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
-  }
-  .topbar .brandtag{display:flex;align-items:center;gap:.7em;}
-  .blip{width:8px;height:8px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 3px rgba(190,95,44,.2);}
+  .topbar{position:sticky;top:0;z-index:200;background:rgba(237,228,209,.88);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--hair);}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;}
+  .topbar .brandtag{display:flex;align-items:center;gap:.7em;font-weight:700;}
+  .blip{width:8px;height:8px;border-radius:50%;background:var(--clay);box-shadow:0 0 0 3px rgba(215,73,10,.2);}
   .topbar nav{display:flex;gap:1.4em;align-items:center;}
   .topbar nav a{text-decoration:none;opacity:.7;transition:opacity .2s;}
   .topbar nav a:hover{opacity:1;}
-  .langtoggle{
-    border:1px solid var(--ink);background:transparent;color:var(--ink);
-    font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
-    padding:.35em .6em;cursor:pointer;border-radius:2px;
-    transition:background .2s,color .2s;
-  }
+  .langtoggle{border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;padding:.35em .6em;cursor:pointer;border-radius:2px;transition:background .2s,color .2s;}
   .langtoggle b{font-weight:700;}
   .langtoggle .off{opacity:.4;}
   .langtoggle:hover{background:var(--ink);color:var(--cream);}
-  @media(max-width:720px){.topbar .hidemob{display:none;}}
+  @media(max-width:760px){.topbar .hidemob{display:none;}}
 
   /* ---------- hero ---------- */
-  .hero{position:relative;padding:clamp(48px,9vh,120px) 0 clamp(40px,7vh,90px);}
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1fr minmax(220px,300px);
-    gap:clamp(24px,5vw,64px);
-    align-items:end;
-  }
-  .hero h1{
-    font-family:var(--serif);
-    font-weight:300;
-    font-size:clamp(3rem,11.5vw,9.4rem);
-    line-height:.92;
-    letter-spacing:-.025em;
-    margin:.15em 0 .35em;
-    max-width:13ch;
-  }
-  .hero h1 em{
-    font-style:italic;font-weight:500;color:var(--clay);
-    position:relative;
-  }
-  .hero h1 .ribbon{
-    color:var(--oxblood);font-weight:600;font-style:normal;
-  }
-  .hero .lede{
-    font-size:clamp(1.05rem,2.1vw,1.4rem);
-    max-width:46ch;color:var(--ink-soft);font-weight:400;
-    line-height:1.45;
-  }
+  .hero{position:relative;padding:clamp(44px,8vh,104px) 0 clamp(34px,6vh,72px);}
+  .hero-grid{display:grid;grid-template-columns:1fr minmax(210px,290px);gap:clamp(24px,5vw,64px);align-items:end;}
+  .opening-badge{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;background:var(--oxblood);color:var(--cream);padding:.4em .8em;border-radius:3px;margin-bottom:18px;}
+  .hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.8rem,10vw,8.4rem);line-height:.94;letter-spacing:-.025em;margin:.1em 0 .35em;max-width:14ch;}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--clay);}
+  .hero .lede{font-size:clamp(1.05rem,2.1vw,1.4rem);max-width:46ch;color:var(--ink-soft);font-weight:400;line-height:1.45;}
   .hero .lede b{color:var(--ink);font-weight:600;}
-
-  /* meta sidebar */
-  .meta{
-    border-top:2px solid var(--ink);
-    padding-top:14px;
-    font-family:var(--mono);
-  }
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;}
+  .meta{border-top:2px solid var(--ink);padding-top:14px;font-family:var(--mono);}
   .meta dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55em 1em;font-size:.74rem;}
   .meta dt{color:var(--oxblood);letter-spacing:.12em;text-transform:uppercase;}
   .meta dd{margin:0;text-align:right;letter-spacing:.02em;}
-
-  /* floating seal */
-  .seal{
-    position:absolute;top:clamp(10px,4vw,30px);right:var(--gut);
-    width:clamp(96px,13vw,142px);height:auto;
-    transform:rotate(8deg);transform-origin:center;
-    filter:drop-shadow(0 8px 16px rgba(38,38,38,.2));
-    animation:sway 7s ease-in-out infinite;
-  }
+  .seal{position:absolute;top:clamp(58px,10vw,132px);right:clamp(24px,6vw,78px);width:clamp(150px,19vw,230px);height:auto;transform:rotate(8deg);transform-origin:center;filter:drop-shadow(0 10px 20px rgba(38,38,38,.22));animation:sway 7s ease-in-out infinite;}
   @media(prefers-reduced-motion:reduce){.seal{animation:none;}}
   @keyframes sway{0%,100%{transform:rotate(8deg);}50%{transform:rotate(-6deg) translateY(-4px);}}
-  @media(max-width:720px){.seal{display:none;}}
+  @media(max-width:760px){.seal{display:none;}}
+  .badge-wrap{margin-top:clamp(30px,6vw,60px);text-align:center;}
+  .badge{width:clamp(280px,46vw,520px);transform:rotate(-1.5deg);filter:drop-shadow(0 10px 16px rgba(38,38,38,.14));}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}.meta{margin-top:4px;}}
 
-  /* hero logo badge */
-  .badge-wrap{
-    margin-top:clamp(34px,6vw,64px);
-    display:flex;align-items:flex-end;gap:clamp(20px,4vw,48px);
-    flex-wrap:wrap;
-  }
-  .badge{
-    width:clamp(280px,46vw,520px);
-    transform:rotate(-1.5deg);
-    filter:drop-shadow(0 10px 16px rgba(38,38,38,.14));
-  }
-  .badge-note{
-    font-family:var(--mono);font-size:.74rem;line-height:1.7;color:var(--ink-soft);
-    max-width:30ch;border-left:1px solid var(--hair);padding-left:18px;
-  }
-  .badge-note .pen{color:var(--olive);font-style:italic;font-family:var(--serif);font-size:.95rem;}
-
-  /* hand-drawn vara divider */
   .vara{display:block;width:100%;height:34px;color:var(--ink);opacity:.85;}
-  .vara.flip{transform:scaleX(-1);}
 
   /* ---------- marquee ---------- */
-  .marquee{
-    background:var(--ink);color:var(--cream);
-    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
-    overflow:hidden;white-space:nowrap;
-    padding:13px 0;margin:clamp(40px,6vw,72px) 0;
-  }
+  .marquee{background:var(--ink);color:var(--cream);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;white-space:nowrap;padding:13px 0;margin:clamp(34px,5vw,60px) 0;}
   .marquee .track{display:inline-block;animation:scroll 34s linear infinite;}
   .marquee:hover .track{animation-play-state:paused;}
   @media(prefers-reduced-motion:reduce){.marquee .track{animation:none;}}
-  .marquee span{
-    font-family:var(--serif);font-style:italic;font-size:1.3rem;font-weight:400;
-    padding:0 .2em;
-  }
+  .marquee span{font-family:var(--serif);font-style:italic;font-size:1.3rem;font-weight:400;padding:0 .2em;}
   .marquee .dot{color:var(--ember);font-style:normal;font-family:var(--mono);padding:0 1em;}
   @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-  /* ---------- generic section ---------- */
-  section{padding:clamp(46px,8vh,96px) 0;}
-  .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,6vw,64px);}
-  h2{
-    font-family:var(--serif);font-weight:300;
-    font-size:clamp(2rem,5.4vw,3.9rem);line-height:1.02;letter-spacing:-.02em;
-    margin:0;max-width:18ch;
-  }
+  section{padding:clamp(44px,7vh,90px) 0;}
+  .sec-head{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(30px,5vw,56px);}
+  h2{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,5.4vw,3.9rem);line-height:1.02;letter-spacing:-.02em;margin:0;max-width:18ch;}
   h2 em{font-style:italic;color:var(--clay);font-weight:500;}
   .prose{font-size:clamp(1.05rem,1.7vw,1.25rem);max-width:54ch;color:var(--ink-soft);line-height:1.6;}
   .prose b{color:var(--ink);font-weight:600;}
 
-  /* premise / pull quote */
-  .premise{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,80px);align-items:center;}
-  .pull{
-    font-family:var(--serif);font-style:italic;font-weight:400;
-    font-size:clamp(1.7rem,4vw,2.9rem);line-height:1.18;letter-spacing:-.015em;
-    color:var(--ink);position:relative;padding-left:.3em;
-  }
+  /* ---------- about ---------- */
+  .about{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,6vw,80px);align-items:center;}
+  .pull{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.7rem,4vw,2.9rem);line-height:1.18;letter-spacing:-.015em;color:var(--ink);padding-left:.3em;}
   .pull .big{color:var(--oxblood);font-weight:600;font-style:normal;}
-  .pull cite{display:block;margin-top:.7em;font-style:normal;font-family:var(--mono);
-    font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
+  .pull cite{display:block;margin-top:.7em;font-style:normal;font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
+  @media(max-width:820px){.about{grid-template-columns:1fr;}}
 
-  /* ---------- pillars index ---------- */
-  .pillars{display:grid;gap:0;border-top:1px solid var(--hair);}
-  .pillar{
-    display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,4vw,52px);
-    align-items:baseline;padding:clamp(22px,3.5vw,38px) 0;
-    border-bottom:1px solid var(--hair);
-    transition:background .3s,padding-left .3s;
-  }
-  .pillar:hover{background:rgba(190,95,44,.07);padding-left:12px;}
-  .pillar .num{font-family:var(--mono);font-size:.8rem;color:var(--oxblood);letter-spacing:.1em;padding-top:.5em;}
-  .pillar h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,3.6vw,2.5rem);margin:0 0 .25em;letter-spacing:-.015em;}
-  .pillar h3 .es-en{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-top:.6em;}
-  .pillar p{margin:0;color:var(--ink-soft);max-width:48ch;font-size:1.02rem;line-height:1.55;}
-  .pillar .glyph{font-size:2rem;opacity:.55;align-self:center;}
-  @media(max-width:720px){.pillar{grid-template-columns:auto 1fr;}.pillar .glyph{display:none;}}
+  /* ---------- menu ---------- */
+  .menu-note{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,4vw,56px) clamp(30px,6vw,80px);}
+  .menu-cat{border-top:2px solid var(--ink);padding-top:16px;}
+  .menu-cat h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,3.2vw,2.1rem);margin:0 0 .5em;letter-spacing:-.01em;}
+  .menu-cat h3 .es-en{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin-top:.5em;}
+  .menu-cat ul{list-style:none;margin:0;padding:0;}
+  .menu-cat li{display:flex;justify-content:space-between;gap:1em;padding:.5em 0;border-bottom:1px dotted var(--hair);font-size:1.06rem;line-height:1.35;}
+  .menu-cat li .it{color:var(--ink);}
+  .menu-cat li .pr{font-family:var(--mono);font-size:.82rem;color:var(--ink-soft);white-space:nowrap;align-self:center;}
+  @media(max-width:760px){.menu-grid{grid-template-columns:1fr;}}
 
-  /* ---------- punch card feature ---------- */
-  .punch-sec{background:var(--ink);color:var(--cream);position:relative;}
-  .punch-sec .kicker{color:var(--ember);}
-  .punch-sec .kicker::before{background:var(--ember);}
-  .punch-sec h2{color:var(--cream);}
-  .punch-sec h2 em{color:var(--ember);}
-  .punch-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,72px);align-items:center;}
-  .punch-copy .prose{color:rgba(247,239,221,.78);}
-  .punch-copy .prose b{color:var(--cream);}
-
-  .ticket{
-    background:var(--cream);color:var(--ink);
-    border-radius:10px;padding:clamp(22px,3vw,34px);
-    position:relative;transform:rotate(-1.4deg);
-    box-shadow:0 30px 60px rgba(0,0,0,.35);
-    max-width:480px;margin:0 auto;
-  }
-  /* perforation edges */
-  .ticket::before,.ticket::after{
-    content:"";position:absolute;left:0;right:0;height:14px;
-    background-image:radial-gradient(circle at 7px 7px, var(--ink) 5px, transparent 6px);
-    background-size:18px 14px;background-position:center;
-  }
+  /* ---------- rewards (dark) ---------- */
+  .rewards{background:var(--ink);color:var(--cream);position:relative;}
+  .rewards .kicker{color:var(--ember);}
+  .rewards .kicker::before{background:var(--ember);}
+  .rewards h2{color:var(--cream);}
+  .rewards h2 em{color:var(--ember);}
+  .rewards-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,72px);align-items:center;}
+  .rewards .prose{color:rgba(246,239,223,.8);}
+  .rewards .prose b{color:var(--cream);}
+  .ticket{background:var(--cream);color:var(--ink);border-radius:10px;padding:clamp(22px,3vw,34px);position:relative;transform:rotate(-1.4deg);box-shadow:0 30px 60px rgba(0,0,0,.35);max-width:480px;margin:0 auto;}
+  .ticket::before,.ticket::after{content:"";position:absolute;left:0;right:0;height:14px;background-image:radial-gradient(circle at 7px 7px, var(--ink) 5px, transparent 6px);background-size:18px 14px;background-position:center;}
   .ticket::before{top:-7px;}
   .ticket::after{bottom:-7px;}
   .ticket-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px dashed var(--hair);padding-bottom:14px;margin-bottom:18px;}
@@ -254,118 +139,63 @@
   .ticket-head .sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:.5em;}
   .ticket-head .count{font-family:var(--mono);font-weight:700;font-size:.78rem;text-align:right;color:var(--oxblood);}
   .holes{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
-  .hole{
-    aspect-ratio:1;border:2px dashed var(--clay);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--mono);font-size:.7rem;color:var(--clay);
-    cursor:pointer;position:relative;
-    transition:transform .15s,background .25s,color .25s,border-color .25s;
-    user-select:none;background:transparent;
-  }
+  .hole{aspect-ratio:1;border:2px dashed var(--clay);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;color:var(--clay);cursor:pointer;position:relative;transition:transform .15s,background .25s,color .25s,border-color .25s;user-select:none;background:transparent;}
   .hole:hover{transform:scale(1.06);}
   .hole.punched{background:var(--clay);border-style:solid;border-color:var(--clay);color:var(--cream);transform:scale(.96) rotate(-8deg);}
   .hole.punched::after{content:"✶";font-size:1.1rem;}
   .hole.punched .lbl{display:none;}
   .hole.free{border-color:var(--oxblood);color:var(--oxblood);font-weight:700;}
-  .hole.free.unlocked{background:var(--oxblood);border-color:var(--oxblood);color:var(--cream);box-shadow:0 0 0 4px rgba(140,42,28,.25);animation:pop .4s ease;}
-  .hole.free.unlocked::after{content:"";}
+  .hole.free.unlocked{background:var(--oxblood);border-color:var(--oxblood);color:var(--cream);box-shadow:0 0 0 4px rgba(177,33,40,.25);animation:pop .4s ease;}
   @keyframes pop{0%{transform:scale(.6);}60%{transform:scale(1.12);}100%{transform:scale(1);}}
   .ticket-foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:14px;border-top:1px dashed var(--hair);font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--ink-soft);}
   .ticket-foot button{background:none;border:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oxblood);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
   .ticket .reward-msg{min-height:1.2em;color:var(--oxblood);font-weight:700;}
+  @media(max-width:820px){.rewards-grid{grid-template-columns:1fr;}}
 
-  /* ---------- how it works ---------- */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,52px);counter-reset:s;}
-  .step{position:relative;}
-  .step .n{font-family:var(--serif);font-weight:300;font-size:clamp(3.2rem,7vw,5.4rem);line-height:.8;color:var(--clay);display:block;margin-bottom:.2em;}
-  .step h3{font-family:var(--serif);font-weight:500;font-size:1.35rem;margin:0 0 .4em;}
-  .step p{margin:0;color:var(--ink-soft);font-size:1rem;line-height:1.55;}
-  .step:nth-child(2){transform:translateY(26px);}
-  .step:nth-child(3){transform:translateY(52px);}
-  @media(max-width:820px){.steps{grid-template-columns:1fr;gap:30px;}.step:nth-child(2),.step:nth-child(3){transform:none;}}
+  /* ---------- signup ---------- */
+  .signup-card{background:var(--cream);border:2px solid var(--ink);border-radius:14px;padding:clamp(26px,4vw,46px);max-width:680px;margin:0 auto;position:relative;}
+  .signup-card::before{content:"";position:absolute;inset:7px;border:1px solid var(--hair);border-radius:9px;pointer-events:none;}
+  .signup-card h2{font-size:clamp(1.8rem,4.4vw,2.8rem);margin-bottom:.2em;}
+  .signup-card .prose{margin:0 auto 22px;text-align:center;}
+  .signup-card .sec-head{align-items:center;text-align:center;margin-bottom:24px;}
+  form.join{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  form.join .full{grid-column:1 / -1;}
+  form.join label{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  form.join input,form.join select{width:100%;font-family:var(--serif);font-size:1.05rem;padding:.7em .9em;border:1.5px solid var(--hair);border-radius:6px;background:var(--paper);color:var(--ink);transition:border-color .2s;}
+  form.join input:focus,form.join select:focus{outline:none;border-color:var(--clay);}
+  form.join select:invalid{color:var(--ink-soft);}
+  form.join button{width:100%;justify-content:center;font-size:.85rem;padding:1.05em;}
+  .form-msg{grid-column:1 / -1;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;min-height:1.2em;}
+  .form-msg.ok{color:var(--olive);}
+  .form-msg.err{color:var(--oxblood);}
+  @media(max-width:560px){form.join{grid-template-columns:1fr;}}
 
-  /* ---------- phone gallery ---------- */
-  .phones{display:flex;gap:clamp(18px,3vw,46px);justify-content:center;flex-wrap:wrap;align-items:flex-end;}
-  .phone{
-    width:230px;height:470px;background:var(--ink);border-radius:34px;padding:11px;
-    box-shadow:0 26px 50px rgba(42,26,18,.28);position:relative;flex:0 0 auto;
-  }
-  .phone:nth-child(1){transform:rotate(-4deg);}
-  .phone:nth-child(2){transform:translateY(-26px) rotate(1.5deg);z-index:2;}
-  .phone:nth-child(3){transform:rotate(5deg);}
-  .phone .screen{background:var(--paper);border-radius:25px;height:100%;overflow:hidden;position:relative;display:flex;flex-direction:column;}
-  .phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:78px;height:6px;border-radius:6px;background:rgba(247,239,221,.5);z-index:5;}
-  .scr-head{background:var(--clay);color:var(--cream);padding:26px 16px 14px;text-align:center;}
-  .scr-head .nm{font-family:var(--serif);font-weight:600;font-size:1.15rem;letter-spacing:.02em;}
-  .scr-head .tg{font-family:var(--mono);font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;opacity:.85;margin-top:3px;}
-  .scr-body{padding:16px;flex:1;}
-  .mini-hint{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;}
-  /* mini punch grid in phone */
-  .mini-holes{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:14px;}
-  .mini-holes i{aspect-ratio:1;border-radius:50%;border:1.5px dashed var(--clay);display:block;}
-  .mini-holes i.on{background:var(--clay);border-style:solid;}
-  .mini-holes i.free{border-color:var(--oxblood);background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(140,42,28,.18) 3px,rgba(140,42,28,.18) 6px);}
-  .mini-card{background:var(--cream);border:1px solid var(--hair);border-radius:12px;padding:13px;font-size:.78rem;color:var(--ink-soft);line-height:1.4;}
-  .mini-card .big{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:1rem;display:block;margin-bottom:3px;}
-  /* QR */
-  .qr{width:120px;height:120px;margin:8px auto 14px;background:
-      conic-gradient(var(--ink) 0 0) padding-box;border:6px solid var(--cream);border-radius:10px;
-      background-image:
-        linear-gradient(var(--ink) 0 0),linear-gradient(var(--ink) 0 0);
-      position:relative;background:#fff;}
-  .qr svg{width:100%;height:100%;display:block;}
-  /* push notification card */
-  .notif{background:var(--cream);border-radius:14px;padding:12px 13px;box-shadow:0 8px 18px rgba(42,26,18,.14);display:flex;gap:10px;align-items:flex-start;margin-top:8px;animation:slidein .6s ease;}
-  @keyframes slidein{from{transform:translateY(-12px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-  .notif .ico{width:30px;height:30px;border-radius:7px;background:var(--clay);flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:.9rem;}
-  .notif .tx{font-size:.68rem;line-height:1.35;color:var(--ink);}
-  .notif .tx b{display:block;font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--oxblood);margin-bottom:3px;}
-  .phone-cap{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:center;margin-top:8px;}
+  /* ---------- visit ---------- */
+  .visit-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,52px);align-items:stretch;}
+  .visit-info{display:flex;flex-direction:column;border-top:2px solid var(--ink);}
+  .visit-cell{padding:clamp(16px,2.4vw,26px) 0;border-bottom:1px solid var(--hair);}
+  .visit-cell .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oxblood);}
+  .visit-cell .big{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:.45em 0 .15em;line-height:1.2;}
+  .visit-cell p{margin:.2em 0;color:var(--ink-soft);font-size:1rem;line-height:1.45;}
+  .visit-cell a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--hair);transition:border-color .2s;}
+  .visit-cell a:hover{border-color:var(--clay);}
+  .visit-map{position:relative;display:block;border:2px solid var(--ink);border-radius:12px;overflow:hidden;min-height:340px;text-decoration:none;box-shadow:0 18px 36px rgba(38,38,38,.16);transition:transform .2s,box-shadow .2s;}
+  .visit-map:hover{transform:translateY(-3px);box-shadow:0 22px 44px rgba(38,38,38,.24);}
+  .visit-map iframe{width:100%;height:100%;min-height:340px;border:0;display:block;pointer-events:none;filter:grayscale(.12) contrast(1.03);}
+  .visit-map .map-pill{position:absolute;bottom:16px;left:16px;display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:.6em 1em;border-radius:5px;box-shadow:0 6px 16px rgba(0,0,0,.3);pointer-events:none;}
+  @media(max-width:820px){.visit-layout{grid-template-columns:1fr;}.visit-map{min-height:280px;}.visit-map iframe{min-height:280px;}}
 
-  /* ---------- roadmap ---------- */
-  .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink);}
-  .phase{padding:clamp(22px,3vw,36px) clamp(18px,2.5vw,30px);border-right:1px solid var(--hair);position:relative;}
-  .phase:last-child{border-right:none;}
-  .phase .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oxblood);}
-  .phase h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:.5em 0 .1em;}
-  .phase .when{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin-bottom:1em;}
-  .phase ul{margin:0;padding:0;list-style:none;}
-  .phase li{font-size:.95rem;color:var(--ink-soft);padding:.4em 0;border-top:1px dotted var(--hair);line-height:1.4;}
-  .phase li::before{content:"→ ";color:var(--clay);}
-  .phase.live::after{content:"AHORA";position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;background:var(--ember);color:var(--ink);padding:.25em .5em;border-radius:3px;}
-  @media(max-width:820px){.roadmap{grid-template-columns:1fr;}.phase{border-right:none;border-bottom:1px solid var(--hair);}}
-
-  /* ---------- stack / colophon ---------- */
-  .stack{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);}
-  .stack dl{margin:0;}
-  .stack .row{display:flex;justify-content:space-between;gap:1em;padding:.85em 0;border-bottom:1px solid var(--hair);font-family:var(--mono);font-size:.82rem;}
-  .stack .row dt{color:var(--ink);letter-spacing:.04em;}
-  .stack .row dd{margin:0;color:var(--ink-soft);text-align:right;}
-  @media(max-width:720px){.stack{grid-template-columns:1fr;}}
-
-  /* ---------- CTA / footer ---------- */
-  .cta{text-align:center;padding:clamp(60px,11vh,140px) 0;}
-  .cta h2{margin:0 auto .3em;max-width:18ch;}
-  .cta .dom{font-family:var(--serif);font-style:italic;font-size:clamp(2rem,7vw,4.4rem);color:var(--clay);font-weight:500;letter-spacing:-.02em;display:inline-block;margin:.2em 0;text-decoration:none;border-bottom:2px solid transparent;transition:border-color .25s;}
-  .cta .dom:hover{border-color:var(--clay);}
-
+  /* ---------- footer ---------- */
   footer{border-top:2px solid var(--ink);padding:clamp(34px,6vw,56px) 0 clamp(40px,6vw,60px);}
   .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;}
   .foot-grid img{width:170px;transform:rotate(-1.5deg);}
   .colophon{font-family:var(--mono);font-size:.7rem;line-height:1.9;color:var(--ink-soft);letter-spacing:.04em;text-align:right;}
   .colophon b{color:var(--ink);}
+  .colophon a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--hair);}
 
-  /* reveal on scroll */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
   .reveal.in{opacity:1;transform:none;}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
-
-  @media(max-width:900px){
-    .hero-grid{grid-template-columns:1fr;}
-    .meta{margin-top:6px;}
-    .premise{grid-template-columns:1fr;}
-    .punch-grid{grid-template-columns:1fr;}
-  }
 </style>
 </head>
 <body>
@@ -375,11 +205,12 @@
 <!-- ============ TOP BAR ============ -->
 <header class="topbar">
   <div class="wrap">
-    <div class="brandtag"><span class="blip"></span><span data-en="La Varita — Loyalty">La Varita — Lealtad</span></div>
+    <div class="brandtag"><span class="blip"></span><span>La Varita</span></div>
     <nav>
-      <a href="#concepto" class="hidemob" data-en="The concept">El concepto</a>
-      <a href="#tarjeta" class="hidemob" data-en="Punch card">Tarjeta</a>
-      <a href="#ruta" class="hidemob" data-en="Roadmap">Ruta</a>
+      <a href="#tradicion" class="hidemob" data-en="Our food">La tradición</a>
+      <a href="#menu" class="hidemob" data-en="Menu">Menú</a>
+      <a href="#recompensas" class="hidemob" data-en="Rewards">Recompensas</a>
+      <a href="#visitanos" class="hidemob" data-en="Visit">Visítanos</a>
       <button class="langtoggle" id="lang" aria-label="Toggle language"><b class="es">ES</b> <span class="off en">EN</span></button>
     </nav>
   </div>
@@ -387,37 +218,31 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <!-- rotating campfire seal (official brand estampa) -->
   <img class="seal" src="./assets/lavarita-seal.png" alt="Sello La Varita — Asado con tradición" />
-
   <div class="wrap hero-grid">
     <div>
-      <span class="kicker"><span data-en="App concept · Loyalty program">Concepto de app · Programa de lealtad</span></span>
-      <h1 data-en="Loyalty, <em>roasted</em> with <span class='ribbon'>tradition.</span>">Lealtad, <em>asada</em> con <span class="ribbon">tradición.</span></h1>
-      <p class="lede" data-en="An app that turns every plate of <b>chicken &amp; ribs a la vara</b> into a reason to come back — a digital punch card, specials by push, and a quick scan at the register that remembers what you love.">Una app que convierte cada plato de <b>pollo y costillas a la vara</b> en una razón para volver — tarjeta de sellos digital, especiales por push, y un escaneo rápido en caja que recuerda lo que te gusta.</p>
+      <span class="opening-badge" data-en="Opening · August 2026">Abrimos · Agosto 2026</span>
+      <h1 data-en="Chicken &amp; ribs, roasted <em>a la vara</em>.">Pollo y costillas, asados <em>a la vara</em>.</h1>
+      <p class="lede" data-en="Puerto Rican flavor, <b>roasted with tradition</b>. We're opening soon at Plaza del Caribe in Ponce — be one of the first to know.">Sabor puertorriqueño, <b>asado con tradición</b>. Abrimos pronto en Plaza del Caribe, Ponce — sé de los primeros en saber.</p>
+      <div class="hero-cta">
+        <a href="#unete" class="btn primary" data-en="Notify me when we open">Avísame cuando abramos</a>
+        <a href="#menu" class="btn ghost" data-en="See the menu">Ver el menú</a>
+      </div>
     </div>
-
     <aside class="meta">
       <dl>
-        <dt data-en="Client">Cliente</dt><dd>La Varita</dd>
+        <dt data-en="Opening">Apertura</dt><dd>Agosto 2026</dd>
         <dt data-en="Place">Lugar</dt><dd>Ponce, P.R.</dd>
-        <dt data-en="Year">Año</dt><dd>2026</dd>
-        <dt data-en="Scope">Alcance</dt><dd data-en="Loyalty · POS · Push">Lealtad · POS · Push</dd>
-        <dt>Web</dt><dd>lavaritapr.com</dd>
+        <dt data-en="Cuisine">Cocina</dt><dd data-en="Rotisserie">Asado a la vara</dd>
+        <dt data-en="Status">Estado</dt><dd data-en="Opening soon">Próximamente</dd>
       </dl>
     </aside>
   </div>
-
   <div class="wrap badge-wrap">
     <img class="badge" src="./assets/lavarita-wordmark.png" alt="La Varita — Asado con tradición" />
-    <p class="badge-note">
-      <span class="pen">“Asado con tradición.”</span><br/>
-      <span data-en="The brand leads the experience: brick-red type, charcoal varas, ember campfire — the spit that gives the house its name.">La marca guía la experiencia: tipografía achiote, varas en carbón, fogata candela — el asador que le da nombre a la casa.</span>
-    </p>
   </div>
 </section>
 
-<!-- vara divider -->
 <div class="wrap">
   <svg class="vara" viewBox="0 0 1200 34" preserveAspectRatio="none" aria-hidden="true">
     <path d="M2 17 L1120 17" stroke="currentColor" stroke-width="2" fill="none"/>
@@ -428,86 +253,84 @@
   </svg>
 </div>
 
-<!-- ============ PREMISE ============ -->
-<section id="premise">
-  <div class="wrap premise reveal">
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Pollo a la vara</span><span class="dot">✶</span><span>Costillas</span><span class="dot">✶</span><span>Tostones</span><span class="dot">✶</span><span>Arroz con gandules</span><span class="dot">✶</span><span>Amarillos</span><span class="dot">✶</span><span>Asado con tradición</span><span class="dot">✶</span><span>Pollo a la vara</span><span class="dot">✶</span><span>Costillas</span><span class="dot">✶</span><span>Tostones</span><span class="dot">✶</span><span>Arroz con gandules</span><span class="dot">✶</span><span>Amarillos</span><span class="dot">✶</span><span>Asado con tradición</span><span class="dot">✶</span>
+  </div>
+</div>
+
+<!-- ============ TRADITION / ABOUT ============ -->
+<section id="tradicion">
+  <div class="wrap about reveal">
     <div>
-      <span class="kicker"><span data-en="The premise">La premisa</span></span>
-      <p class="prose" style="margin-top:18px" data-en="A rotisserie spot lives on regulars. But the receipt walks out the door and the relationship ends at the counter. The register knows what people order — that knowledge just never reaches the customer again.">Un asadero vive de sus clientes fieles. Pero el recibo se va por la puerta y la relación termina en el mostrador. La caja sabe lo que la gente pide — ese conocimiento simplemente nunca le vuelve a llegar al cliente.</p>
-      <p class="prose" style="margin-top:14px" data-en="La Varita closes that loop. One scan ties the plate to a person, the punch card fills up on its own, and the next craving arrives as a notification — <b>the right special, for the right regular.</b>">La Varita cierra ese ciclo. Un escaneo amarra el plato a una persona, la tarjeta de sellos se llena sola, y el próximo antojo llega como notificación — <b>el especial correcto, para el cliente correcto.</b></p>
+      <span class="kicker"><span data-en="Our food">La tradición</span></span>
+      <p class="prose" style="margin-top:18px" data-en="At La Varita, the chicken and ribs are slow-roasted <b>a la vara</b> — on the spit, over an open flame, the way it's done in Puerto Rico. No shortcuts, no rush. Just smoke, time, and tradition.">En La Varita, el pollo y las costillas se asan lento <b>a la vara</b> — sobre la candela, como se hace en Puerto Rico. Sin atajos, sin prisa. Solo humo, tiempo y tradición.</p>
+      <p class="prose" style="margin-top:14px" data-en="Crispy skin, juicy inside, with the sides that make it a real Puerto Rican plate. <b>That's the flavor we're bringing to Ponce.</b>">Piel crujiente, jugoso por dentro, con los acompañantes que lo hacen un plato boricua de verdad. <b>Ese es el sabor que traemos a Ponce.</b></p>
     </div>
     <blockquote class="pull">
-      <span data-en="“Buy nine, ">“Compra nueve, </span><span class="big" data-en="the tenth is on the house.”">el décimo va por la casa.”</span>
-      <cite data-en="The whole loyalty idea, in one line">Toda la idea de lealtad, en una línea</cite>
+      <span data-en="“Roasted ">“Asado </span><span class="big" data-en="with tradition.”">con tradición.”</span>
+      <cite data-en="The La Varita way">A la manera de La Varita</cite>
     </blockquote>
   </div>
 </section>
 
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="track">
-    <span>Pollo a la vara</span><span class="dot">✶</span><span>Costillas</span><span class="dot">✶</span><span>Tostones</span><span class="dot">✶</span><span>Arroz con gandules</span><span class="dot">✶</span><span>Amarillos</span><span class="dot">✶</span><span>Ensalada de coditos</span><span class="dot">✶</span><span>Pollo a la vara</span><span class="dot">✶</span><span>Costillas</span><span class="dot">✶</span><span>Tostones</span><span class="dot">✶</span><span>Arroz con gandules</span><span class="dot">✶</span><span>Amarillos</span><span class="dot">✶</span><span>Ensalada de coditos</span><span class="dot">✶</span>
-  </div>
-</div>
-
-<!-- ============ PILLARS ============ -->
-<section id="concepto">
+<!-- ============ MENU ============ -->
+<section id="menu" style="padding-top:0;">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="kicker"><span data-en="The concept, in four parts">El concepto, en cuatro partes</span></span>
-      <h2 data-en="What the app <em>does</em>.">Lo que la app <em>hace</em>.</h2>
+      <span class="kicker"><span data-en="The menu">Nuestro menú</span></span>
+      <h2 data-en="What's on the <em>vara</em>.">Lo que sale de la <em>vara</em>.</h2>
+      <span class="menu-note" data-en="Sample menu · subject to change before opening">Menú de muestra · sujeto a cambios antes de abrir</span>
     </div>
-
-    <div class="pillars">
-      <article class="pillar reveal">
-        <span class="num">01</span>
-        <div>
-          <h3 data-en="Digital punch card<span class='es-en'>Loyalty that fills itself</span>">Tarjeta de sellos digital<span class="es-en">Lealtad que se llena sola</span></h3>
-          <p data-en="Every qualifying visit earns a stamp. Reach nine and the tenth plate is free — no paper card to lose, it lives in the app.">Cada visita que califica gana un sello. Al llegar a nueve, el décimo plato es gratis — sin cartoncito que perder, vive en la app.</p>
-        </div>
-        <span class="glyph">✶</span>
-      </article>
-
-      <article class="pillar reveal">
-        <span class="num">02</span>
-        <div>
-          <h3 data-en="Specials by push<span class='es-en'>News that arrives warm</span>">Especiales por push<span class="es-en">Noticias que llegan calientes</span></h3>
-          <p data-en="Today's roast, weekend combos, holiday hours — announced straight to the phones of people who already love the place.">El asado de hoy, combos de fin de semana, horario de fiestas — anunciados directo al teléfono de quien ya quiere el lugar.</p>
-        </div>
-        <span class="glyph">✦</span>
-      </article>
-
-      <article class="pillar reveal">
-        <span class="num">03</span>
-        <div>
-          <h3 data-en="One scan at Clover<span class='es-en'>Before you pay</span>">Un escaneo en Clover<span class="es-en">Antes de pagar</span></h3>
-          <p data-en="The cashier scans the customer's app before checkout. The order ties to their profile in the Clover POS — no extra steps, no app to install on the register at launch.">El cajero escanea la app del cliente antes de cobrar. La orden se amarra a su perfil en el POS Clover — sin pasos extra, sin app que instalar en la caja al inicio.</p>
-        </div>
-        <span class="glyph">⊞</span>
-      </article>
-
-      <article class="pillar reveal">
-        <span class="num">04</span>
-        <div>
-          <h3 data-en="It learns your taste<span class='es-en'>Targeted, not noisy</span>">Aprende tu gusto<span class="es-en">Dirigido, no ruidoso</span></h3>
-          <p data-en="Because the app sees past orders, the rib lover hears about ribs and the chicken regular hears about chicken. The right message, never spam.">Como la app ve las órdenes pasadas, al de costillas le hablan de costillas y al de pollo le hablan de pollo. El mensaje correcto, nunca spam.</p>
-        </div>
-        <span class="glyph">◆</span>
-      </article>
+    <div class="menu-grid reveal">
+      <div class="menu-cat">
+        <h3 data-en="The Roast — a la vara<span class='es-en'>The star of the show</span>">El Asado — a la vara<span class="es-en">La estrella de la casa</span></h3>
+        <ul>
+          <li><span class="it" data-en="Half chicken">Medio pollo</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Whole chicken">Pollo entero</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Half rack of ribs">Medio costillar</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Full rack of ribs">Costillar completo</span><span class="pr">—</span></li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h3 data-en="Combos<span class='es-en'>Make it a meal</span>">Combos<span class="es-en">Hazlo completo</span></h3>
+        <ul>
+          <li><span class="it" data-en="Chicken + 2 sides + drink">Pollo + 2 acompañantes + refresco</span><span class="pr">—</span></li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h3 data-en="Sides<span class='es-en'>The supporting cast</span>">Acompañantes<span class="es-en">Lo que acompaña</span></h3>
+        <ul>
+          <li><span class="it" data-en="Rice with pigeon peas">Arroz con gandules</span><span class="pr">—</span></li>
+          <li><span class="it">Tostones</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Sweet plantains">Amarillos</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Mashed potatoes">Papas majadas</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Macaroni salad">Ensalada de coditos</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Root vegetables">Viandas</span><span class="pr">—</span></li>
+        </ul>
+      </div>
+      <div class="menu-cat">
+        <h3 data-en="Sauces &amp; Drinks<span class='es-en'>To finish</span>">Salsas y Bebidas<span class="es-en">Para acompañar</span></h3>
+        <ul>
+          <li><span class="it">Ajilimójili</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Creole BBQ">BBQ criollo</span><span class="pr">—</span></li>
+          <li><span class="it" data-en="Soft drinks · Malta · Juice · Water">Refrescos · Maltas · Jugos · Agua</span><span class="pr">—</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PUNCH CARD FEATURE ============ -->
-<section class="punch-sec" id="tarjeta">
-  <div class="wrap punch-grid">
-    <div class="punch-copy reveal">
-      <span class="kicker"><span data-en="Signature feature">Función estrella</span></span>
-      <h2 style="margin-top:14px" data-en="Try the <em>punch card</em>.">Prueba la <em>tarjeta de sellos</em>.</h2>
-      <p class="prose" style="margin-top:18px" data-en="This is what the customer sees. Tap a hole to punch it — fill nine and the tenth unlocks. Simple enough for any abuela, sticky enough to bring her back.">Esto es lo que ve el cliente. Toca un círculo para sellarlo — llena nueve y el décimo se desbloquea. Tan simple que cualquier abuela lo usa, tan pegajoso que la trae de vuelta.</p>
-      <p class="mono" style="font-size:.72rem;color:rgba(247,239,221,.55);margin-top:22px;letter-spacing:.06em;" data-en="↓ go ahead — it really works">↓ dale — de verdad funciona</p>
+<!-- ============ REWARDS ============ -->
+<section class="rewards" id="recompensas">
+  <div class="wrap rewards-grid">
+    <div class="reveal">
+      <span class="kicker"><span data-en="Loyalty program">Programa de lealtad</span></span>
+      <h2 style="margin-top:14px" data-en="Buy 9, the 10th is <em>on the house</em>.">Compra 9, el 10mo va <em>por la casa</em>.</h2>
+      <p class="prose" style="margin-top:18px" data-en="Every visit earns a stamp. Fill your card and your next plate is free. Sign up below and you're in from day one — plus you'll be first to hear our specials.">Cada visita gana un sello. Llena tu tarjeta y el próximo plato es gratis. Regístrate abajo y entras desde el día uno — y serás de los primeros en recibir nuestros especiales.</p>
+      <p class="mono" style="font-size:.72rem;color:rgba(246,239,223,.55);margin-top:22px;letter-spacing:.06em;" data-en="↓ try it — tap the circles">↓ pruébalo — toca los círculos</p>
     </div>
-
     <div class="reveal">
       <div class="ticket" id="ticket">
         <div class="ticket-head">
@@ -517,9 +340,9 @@
           </div>
           <div class="count"><span id="count">0</span><span data-en=" / 9 stamps"> / 9 sellos</span></div>
         </div>
-        <div class="holes" id="holes"><!-- JS fills --></div>
+        <div class="holes" id="holes"></div>
         <div class="ticket-foot">
-          <span class="reward-msg" id="reward" data-en="" data-en-locked="🔥 Free plate unlocked!"></span>
+          <span class="reward-msg" id="reward"></span>
           <button id="reset" data-en="Reset">Reiniciar</button>
         </div>
       </div>
@@ -527,181 +350,90 @@
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
-<section id="flujo">
+<!-- ============ SIGN UP ============ -->
+<section id="unete">
+  <div class="wrap">
+    <div class="signup-card reveal">
+      <div class="sec-head">
+        <span class="kicker" style="justify-content:center;display:inline-flex"><span data-en="Be the first">Sé de los primeros</span></span>
+        <h2 data-en="Join La Varita.">Únete a La Varita.</h2>
+      </div>
+      <p class="prose" data-en="Leave your info and we'll let you know the moment we open — plus specials and your spot in the rewards program.">Déjanos tus datos y te avisamos apenas abramos — además de especiales y tu lugar en el programa de lealtad.</p>
+      <form class="join" id="joinForm" action="https://formsubmit.co/admin@lavaritapr.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo registro — La Varita">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="🔥 ¡Bienvenido a la familia La Varita! Ya tienes tu lugar: serás de los primeros en saber cuando abramos en Plaza del Caribe, Ponce — con especiales exclusivos y tu tarjeta de lealtad desde el día uno. Compra 9, el 10mo va por la casa. Asado con tradición. — La Varita ··· Welcome to the La Varita family! You are on the list: you will be the first to know when we open at Plaza del Caribe, Ponce — with exclusive specials and your loyalty card from day one. Buy 9, the 10th is on the house. Asado con tradición. — La Varita">
+        <input type="text" name="_honey" style="display:none">
+        <div class="full">
+          <label data-en="Name">Nombre</label>
+          <input type="text" name="Nombre" required placeholder="Tu nombre" data-en-ph="Your name" />
+        </div>
+        <div>
+          <label data-en="Email">Correo electrónico</label>
+          <input type="email" name="email" required placeholder="tucorreo@email.com" />
+        </div>
+        <div>
+          <label data-en="Phone (optional)">Teléfono (opcional)</label>
+          <input type="tel" name="Telefono" placeholder="787-000-0000" />
+        </div>
+        <div>
+          <label data-en="Which municipality are you from?">¿De qué municipio nos visitas?</label>
+          <select name="Municipio" required>
+            <option value="" disabled selected data-en="Select your municipality">Selecciona tu municipio</option>
+            <option>Adjuntas</option><option>Aguada</option><option>Aguadilla</option><option>Aguas Buenas</option><option>Aibonito</option><option>Añasco</option><option>Arecibo</option><option>Arroyo</option><option>Barceloneta</option><option>Barranquitas</option><option>Bayamón</option><option>Cabo Rojo</option><option>Caguas</option><option>Camuy</option><option>Canóvanas</option><option>Carolina</option><option>Cataño</option><option>Cayey</option><option>Ceiba</option><option>Ciales</option><option>Cidra</option><option>Coamo</option><option>Comerío</option><option>Corozal</option><option>Culebra</option><option>Dorado</option><option>Fajardo</option><option>Florida</option><option>Guánica</option><option>Guayama</option><option>Guayanilla</option><option>Guaynabo</option><option>Gurabo</option><option>Hatillo</option><option>Hormigueros</option><option>Humacao</option><option>Isabela</option><option>Jayuya</option><option>Juana Díaz</option><option>Juncos</option><option>Lajas</option><option>Lares</option><option>Las Marías</option><option>Las Piedras</option><option>Loíza</option><option>Luquillo</option><option>Manatí</option><option>Maricao</option><option>Maunabo</option><option>Mayagüez</option><option>Moca</option><option>Morovis</option><option>Naguabo</option><option>Naranjito</option><option>Orocovis</option><option>Patillas</option><option>Peñuelas</option><option>Ponce</option><option>Quebradillas</option><option>Rincón</option><option>Río Grande</option><option>Sabana Grande</option><option>Salinas</option><option>San Germán</option><option>San Juan</option><option>San Lorenzo</option><option>San Sebastián</option><option>Santa Isabel</option><option>Toa Alta</option><option>Toa Baja</option><option>Trujillo Alto</option><option>Utuado</option><option>Vega Alta</option><option>Vega Baja</option><option>Vieques</option><option>Villalba</option><option>Yabucoa</option><option>Yauco</option>
+            <option data-en="Outside Puerto Rico">Fuera de Puerto Rico</option>
+          </select>
+        </div>
+        <div>
+          <label data-en="How did you find us?">¿Cómo nos encontraste?</label>
+          <select name="Como nos encontraste" required>
+            <option value="" disabled selected data-en="Choose an option">Elige una opción</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option data-en="A friend or family member">Un amigo o familiar</option>
+            <option data-en="Walking through Plaza del Caribe">Caminando por Plaza del Caribe</option>
+            <option data-en="Press / radio / TV">Prensa / radio / TV</option>
+            <option data-en="Other">Otro</option>
+          </select>
+        </div>
+        <button type="submit" class="btn primary full" data-en="Count me in">Cuéntenme</button>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section id="visitanos">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="kicker"><span data-en="In the store">En el local</span></span>
-      <h2 data-en="How it works at the <em>counter</em>.">Cómo funciona en la <em>caja</em>.</h2>
+      <span class="kicker"><span data-en="Find us">Encuéntranos</span></span>
+      <h2 data-en="Coming soon to <em>Ponce</em>.">Próximamente en <em>Ponce</em>.</h2>
     </div>
-    <div class="steps">
-      <div class="step reveal">
-        <span class="n">1</span>
-        <h3 data-en="The customer opens the app">El cliente abre la app</h3>
-        <p data-en="Their loyalty QR is right on the home screen — one tap, ready to show.">Su QR de lealtad está en la pantalla de inicio — un toque, listo para mostrar.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">2</span>
-        <h3 data-en="The cashier scans it">El cajero lo escanea</h3>
-        <p data-en="Before ringing up, the scan attaches the order to the customer inside Clover.">Antes de cobrar, el escaneo amarra la orden al cliente dentro de Clover.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">3</span>
-        <h3 data-en="The punch &amp; push happen on their own">El sello y el push pasan solos</h3>
-        <p data-en="When the order is paid, a stamp lands, the order is remembered, and tomorrow's special is already aimed.">Al pagarse la orden, cae un sello, se recuerda lo pedido, y el especial de mañana ya tiene puntería.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PHONE GALLERY ============ -->
-<section style="padding-top:0;">
-  <div class="wrap">
-    <div class="phones reveal">
-      <!-- phone 1: punch card -->
-      <div class="phone">
-        <span class="notch"></span>
-        <div class="screen">
-          <div class="scr-head"><div class="nm">La Varita</div><div class="tg" data-en="Loyalty">Lealtad</div></div>
-          <div class="scr-body">
-            <div class="mini-hint" data-en="You have 6 of 9">Tienes 6 de 9</div>
-            <div class="mini-holes">
-              <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
-              <i class="on"></i><i></i><i></i><i></i><i class="free"></i>
-            </div>
-            <div class="mini-card"><span class="big" data-en="3 more for a free plate">3 más para un plato gratis</span><span data-en="Your usual: ½ chicken + tostones">Lo de siempre: ½ pollo + tostones</span></div>
-          </div>
+    <div class="visit-layout reveal">
+      <div class="visit-info">
+        <div class="visit-cell">
+          <span class="tag" data-en="Location">Lugar</span>
+          <div class="big">Plaza del Caribe</div>
+          <p>Ponce, Puerto Rico</p>
+        </div>
+        <div class="visit-cell">
+          <span class="tag" data-en="Hours">Horario</span>
+          <div class="big" data-en="Opening Soon">Próximamente</div>
+          <p data-en="Opening August 2026">Abrimos en agosto de 2026</p>
+        </div>
+        <div class="visit-cell">
+          <span class="tag" data-en="Follow us">Síguenos</span>
+          <div class="big">@lavaritapr</div>
+          <p><a href="https://instagram.com/lavaritapr" target="_blank" rel="noopener">Instagram</a> · <a href="https://facebook.com/LaVaritaPR" target="_blank" rel="noopener">Facebook</a></p>
         </div>
       </div>
-
-      <!-- phone 2: QR -->
-      <div class="phone">
-        <span class="notch"></span>
-        <div class="screen">
-          <div class="scr-head"><div class="nm" data-en="Your code">Tu código</div><div class="tg" data-en="Show at the register">Muéstralo en caja</div></div>
-          <div class="scr-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
-            <div class="qr">
-              <svg viewBox="0 0 100 100" shape-rendering="crispEdges">
-                <rect width="100" height="100" fill="#fff"/>
-                <g fill="#2A1A12">
-                  <rect x="6" y="6" width="22" height="22"/><rect x="11" y="11" width="12" height="12" fill="#fff"/><rect x="14" y="14" width="6" height="6" fill="#2A1A12"/>
-                  <rect x="72" y="6" width="22" height="22"/><rect x="77" y="11" width="12" height="12" fill="#fff"/><rect x="80" y="14" width="6" height="6" fill="#2A1A12"/>
-                  <rect x="6" y="72" width="22" height="22"/><rect x="11" y="77" width="12" height="12" fill="#fff"/><rect x="14" y="80" width="6" height="6" fill="#2A1A12"/>
-                  <rect x="36" y="6" width="6" height="6"/><rect x="48" y="6" width="6" height="6"/><rect x="60" y="12" width="6" height="6"/>
-                  <rect x="6" y="36" width="6" height="6"/><rect x="18" y="36" width="6" height="6"/><rect x="36" y="36" width="6" height="6"/><rect x="48" y="42" width="6" height="6"/><rect x="60" y="36" width="6" height="6"/><rect x="72" y="36" width="6" height="6"/><rect x="84" y="42" width="6" height="6"/>
-                  <rect x="42" y="48" width="6" height="6"/><rect x="54" y="54" width="6" height="6"/><rect x="66" y="48" width="6" height="6"/><rect x="30" y="54" width="6" height="6"/><rect x="78" y="60" width="6" height="6"/>
-                  <rect x="36" y="66" width="6" height="6"/><rect x="48" y="72" width="6" height="6"/><rect x="60" y="66" width="6" height="6"/><rect x="72" y="72" width="6" height="6"/><rect x="84" y="78" width="6" height="6"/>
-                  <rect x="42" y="84" width="6" height="6"/><rect x="60" y="84" width="6" height="6"/><rect x="72" y="90" width="6" height="6"/>
-                </g>
-              </svg>
-            </div>
-            <div class="mono" style="font-size:.55rem;letter-spacing:.2em;color:var(--ink-soft);" data-en="MEMBER #0427">SOCIO #0427</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- phone 3: push -->
-      <div class="phone">
-        <span class="notch"></span>
-        <div class="screen">
-          <div class="scr-head" style="background:var(--oxblood);"><div class="nm" data-en="Specials">Especiales</div><div class="tg" data-en="Just for you">Solo para ti</div></div>
-          <div class="scr-body">
-            <div class="notif">
-              <span class="ico">✶</span>
-              <span class="tx"><b>La Varita</b><span data-en="Ribs lover? Today only — full rack + 2 sides, $3 off. 🔥">¿Fan de las costillas? Solo hoy — costillar completo + 2 acompañantes, $3 menos. 🔥</span></span>
-            </div>
-            <div class="notif" style="animation-delay:.15s">
-              <span class="ico" style="background:var(--olive)">✦</span>
-              <span class="tx"><b>La Varita</b><span data-en="You're 3 stamps from a free plate. We saved your spot.">Te faltan 3 sellos para un plato gratis. Te guardamos el puesto.</span></span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <a class="visit-map" href="https://www.google.com/maps/search/?api=1&query=Plaza%20del%20Caribe%2C%20Ponce%2C%20Puerto%20Rico" target="_blank" rel="noopener" aria-label="Abrir en Google Maps — Plaza del Caribe, Ponce">
+        <iframe title="Plaza del Caribe, Ponce" src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1sPlaza+del+Caribe,+Ponce,+Puerto+Rico!6i14" loading="lazy" tabindex="-1"></iframe>
+        <span class="map-pill" data-en="Open in Google Maps ↗">Abrir en Google Maps ↗</span>
+      </a>
     </div>
-    <p class="phone-cap reveal" data-en="Concept screens · final visual design follows the brand">Pantallas de concepto · el diseño final sigue la marca</p>
-  </div>
-</section>
-
-<!-- ============ ROADMAP ============ -->
-<section id="ruta">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker"><span data-en="How we ship it">Cómo lo lanzamos</span></span>
-      <h2 data-en="A roadmap that opens <em>fast</em>.">Una ruta que abre <em>rápido</em>.</h2>
-    </div>
-    <div class="roadmap reveal">
-      <div class="phase live">
-        <span class="tag" data-en="Phase 1">Fase 1</span>
-        <h3 data-en="Web app (PWA)">App web (PWA)</h3>
-        <div class="when" data-en="~5 weeks">~5 semanas</div>
-        <ul>
-          <li data-en="Sign up: phone, email, Apple &amp; Google">Registro: teléfono, email, Apple y Google</li>
-          <li data-en="Punch card + loyalty QR">Tarjeta de sellos + QR de lealtad</li>
-          <li data-en="Specials feed, bilingual ES/EN">Feed de especiales, bilingüe ES/EN</li>
-          <li data-en="Clover webhook awards stamps">Clover por webhook otorga sellos</li>
-          <li data-en="Admin console + broadcast push">Consola admin + push general</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <span class="tag" data-en="Phase 2">Fase 2</span>
-        <h3 data-en="Native apps">Apps nativas</h3>
-        <div class="when" data-en="After a stable launch">Tras un lanzamiento estable</div>
-        <ul>
-          <li data-en="iOS + Android (same backend)">iOS + Android (mismo backend)</li>
-          <li data-en="Clover Marketplace app — one-tap scan">App en Clover Marketplace — escaneo de un toque</li>
-          <li data-en="Targeted push by order history">Push dirigido por historial de orden</li>
-          <li data-en="Reward redemption at the POS">Canje de premios en el POS</li>
-        </ul>
-      </div>
-      <div class="phase">
-        <span class="tag" data-en="Phase 3">Fase 3</span>
-        <h3 data-en="Make it grow">Hacerlo crecer</h3>
-        <div class="when" data-en="Once it's loved">Cuando ya lo quieran</div>
-        <ul>
-          <li data-en="Birthday &amp; win-back rewards">Premios de cumpleaños y reconquista</li>
-          <li data-en="Referral codes">Códigos de referido</li>
-          <li data-en="Item-specific challenges">Retos por producto</li>
-          <li data-en="Online ordering (optional)">Ordenar en línea (opcional)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ STACK / COLOPHON ============ -->
-<section>
-  <div class="wrap stack">
-    <div class="reveal">
-      <span class="kicker" style="margin-bottom:20px;display:inline-flex"><span data-en="Under the hood">Por dentro</span></span>
-      <dl>
-        <div class="row"><dt data-en="Front-end">Front-end</dt><dd>Next.js · PWA</dd></div>
-        <div class="row"><dt data-en="Backend">Backend</dt><dd>Node · Postgres</dd></div>
-        <div class="row"><dt data-en="Auth">Identidad</dt><dd>Phone · Email · Apple · Google</dd></div>
-        <div class="row"><dt>POS</dt><dd>Clover API · Webhooks</dd></div>
-        <div class="row"><dt data-en="Notifications">Notificaciones</dt><dd>Web Push · APNs/FCM</dd></div>
-        <div class="row"><dt data-en="Hosting">Alojamiento</dt><dd>Vercel · lavaritapr.com</dd></div>
-      </dl>
-    </div>
-    <div class="reveal">
-      <span class="kicker" style="margin-bottom:20px;display:inline-flex"><span data-en="Loyalty rules">Reglas de lealtad</span></span>
-      <dl>
-        <div class="row"><dt data-en="Mechanic">Mecánica</dt><dd data-en="Buy 9, 10th free">Compra 9, 10mo gratis</dd></div>
-        <div class="row"><dt data-en="Min. to count">Mín. para contar</dt><dd>$8</dd></div>
-        <div class="row"><dt data-en="Redemption">Canje</dt><dd data-en="Equal or lesser value">Valor igual o menor</dd></div>
-        <div class="row"><dt data-en="Language">Idioma</dt><dd data-en="Bilingual ES / EN">Bilingüe ES / EN</dd></div>
-        <div class="row"><dt data-en="Targeting">Segmentación</dt><dd data-en="By past orders">Por órdenes pasadas</dd></div>
-        <div class="row"><dt data-en="Cost at launch">Costo al inicio</dt><dd>~$0–$25/mes</dd></div>
-      </dl>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CTA ============ -->
-<section class="cta">
-  <div class="wrap">
-    <span class="kicker" style="justify-content:center;display:inline-flex"><span data-en="The home of the concept">La casa del concepto</span></span>
-    <h2 style="margin-top:18px" data-en="Where it will live.">Donde va a vivir.</h2>
-    <a class="dom" href="https://lavaritapr.com">lavaritapr.com</a>
   </div>
 </section>
 
@@ -711,96 +443,76 @@
     <img src="./assets/lavarita-mark.png" alt="La Varita" />
     <div class="colophon">
       <b>La Varita</b> · Asado con tradición<br/>
-      <span data-en="Loyalty app concept · 2026">Concepto de app de lealtad · 2026</span><br/>
-      Ponce · Puerto Rico
+      Plaza del Caribe · Ponce · Puerto Rico<br/>
+      <a href="https://instagram.com/lavaritapr" target="_blank" rel="noopener">Instagram</a> · <a href="https://facebook.com/LaVaritaPR" target="_blank" rel="noopener">Facebook</a><br/>
+      © 2026 La Varita
     </div>
   </div>
 </footer>
 
 <script>
 (function(){
-  /* ---------- interactive punch card ---------- */
-  var holes = document.getElementById('holes');
-  var countEl = document.getElementById('count');
-  var rewardEl = document.getElementById('reward');
-  var TOTAL = 9;
-  var state = [];
-
+  /* ---------- punch card ---------- */
+  var holes=document.getElementById('holes'),countEl=document.getElementById('count'),rewardEl=document.getElementById('reward'),TOTAL=9,state=[];
   for(var i=0;i<10;i++){
-    var h = document.createElement('div');
-    h.className = 'hole';
-    if(i===9){
-      h.classList.add('free');
-      h.innerHTML = '<span class="lbl" data-en="FREE">GRATIS</span>';
-      h.dataset.free = '1';
-    } else {
-      h.innerHTML = '<span class="lbl">'+(i+1)+'</span>';
-      h.dataset.idx = i;
-    }
-    holes.appendChild(h);
-    state.push(false);
+    var h=document.createElement('div');h.className='hole';
+    if(i===9){h.classList.add('free');h.innerHTML='<span class="lbl" data-en="FREE">GRATIS</span>';h.dataset.free='1';}
+    else{h.innerHTML='<span class="lbl">'+(i+1)+'</span>';h.dataset.idx=i;}
+    holes.appendChild(h);state.push(false);
   }
-
-  function punchedCount(){
-    var c=0; for(var i=0;i<9;i++){ if(state[i]) c++; } return c;
-  }
+  function punched(){var c=0;for(var i=0;i<9;i++){if(state[i])c++;}return c;}
   function render(){
-    var nodes = holes.querySelectorAll('.hole');
-    for(var i=0;i<9;i++){ nodes[i].classList.toggle('punched', state[i]); }
-    var c = punchedCount();
-    countEl.textContent = c;
-    var freeNode = nodes[9];
-    if(c>=TOTAL){
-      freeNode.classList.add('unlocked');
-      rewardEl.textContent = rewardEl.getAttribute(currentLang==='en'?'data-en-locked':'data-locked') || (currentLang==='en'?'🔥 Free plate unlocked!':'🔥 ¡Plato gratis desbloqueado!');
-    } else {
-      freeNode.classList.remove('unlocked');
-      rewardEl.textContent = '';
-    }
+    var nodes=holes.querySelectorAll('.hole');
+    for(var i=0;i<9;i++){nodes[i].classList.toggle('punched',state[i]);}
+    var c=punched();countEl.textContent=c;var free=nodes[9];
+    if(c>=TOTAL){free.classList.add('unlocked');rewardEl.textContent=currentLang==='en'?'🔥 Free plate unlocked!':'🔥 ¡Plato gratis desbloqueado!';}
+    else{free.classList.remove('unlocked');rewardEl.textContent='';}
   }
-  holes.addEventListener('click', function(e){
-    var hole = e.target.closest('.hole');
-    if(!hole || hole.dataset.free) return;
-    var idx = +hole.dataset.idx;
-    state[idx] = !state[idx];
-    render();
-  });
-  document.getElementById('reset').addEventListener('click', function(){
-    for(var i=0;i<10;i++) state[i]=false;
-    render();
-  });
+  holes.addEventListener('click',function(e){var hole=e.target.closest('.hole');if(!hole||hole.dataset.free)return;var idx=+hole.dataset.idx;state[idx]=!state[idx];render();});
+  document.getElementById('reset').addEventListener('click',function(){for(var i=0;i<10;i++)state[i]=false;render();});
 
   /* ---------- ES / EN toggle ---------- */
-  var currentLang = 'es';
-  var btn = document.getElementById('lang');
-  // store original ES content for every translatable node
-  var nodes = document.querySelectorAll('[data-en]');
-  nodes.forEach(function(n){ n.setAttribute('data-es', n.innerHTML); });
-
+  var currentLang='es',btn=document.getElementById('lang');
+  var nodes=document.querySelectorAll('[data-en]');
+  nodes.forEach(function(n){n.setAttribute('data-es',n.innerHTML);});
+  var phNodes=document.querySelectorAll('[data-en-ph]');
+  phNodes.forEach(function(n){n.setAttribute('data-es-ph',n.getAttribute('placeholder')||'');});
   function setLang(lang){
-    currentLang = lang;
-    nodes.forEach(function(n){
-      var html = n.getAttribute(lang==='en'?'data-en':'data-es');
-      if(html!==null) n.innerHTML = html;
-    });
-    document.documentElement.lang = lang;
-    btn.querySelector('.es').classList.toggle('off', lang!=='es');
-    btn.querySelector('.en').classList.toggle('off', lang!=='en');
-    render(); // refresh reward msg language
+    currentLang=lang;
+    nodes.forEach(function(n){var html=n.getAttribute(lang==='en'?'data-en':'data-es');if(html!==null)n.innerHTML=html;});
+    phNodes.forEach(function(n){var p=n.getAttribute(lang==='en'?'data-en-ph':'data-es-ph');if(p!==null)n.setAttribute('placeholder',p);});
+    document.documentElement.lang=lang;
+    btn.querySelector('.es').classList.toggle('off',lang!=='es');
+    btn.querySelector('.en').classList.toggle('off',lang!=='en');
+    render();
   }
-  btn.addEventListener('click', function(){ setLang(currentLang==='es'?'en':'es'); });
-
+  btn.addEventListener('click',function(){setLang(currentLang==='es'?'en':'es');});
   render();
 
-  /* ---------- reveal on scroll ---------- */
+  /* ---------- join form (AJAX to FormSubmit) ---------- */
+  var form=document.getElementById('joinForm'),msg=document.getElementById('formMsg');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    msg.className='form-msg';msg.textContent=currentLang==='en'?'Sending…':'Enviando…';
+    var data=new FormData(form);
+    fetch('https://formsubmit.co/ajax/admin@lavaritapr.com',{method:'POST',headers:{'Accept':'application/json'},body:data})
+      .then(function(r){return r.json();})
+      .then(function(){
+        form.reset();
+        msg.className='form-msg ok';
+        msg.textContent=currentLang==='en'?'🔥 Welcome to the La Varita family! Check your inbox.':'🔥 ¡Bienvenido a la familia La Varita! Revisa tu correo.';
+      })
+      .catch(function(){
+        msg.className='form-msg err';
+        msg.textContent=currentLang==='en'?'Something went wrong — try again.':'Algo falló — intenta de nuevo.';
+      });
+  });
+
+  /* ---------- reveal ---------- */
   if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
-    },{threshold:.12});
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
-  }
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  }else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});}
 })();
 </script>
 </body>

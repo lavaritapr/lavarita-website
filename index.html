@@ -495,6 +495,15 @@
     e.preventDefault();
     msg.className='form-msg';msg.textContent=currentLang==='en'?'Sending…':'Enviando…';
     var data=new FormData(form);
+    // register as founding member directly in the loyalty database (pre-opening only)
+    fetch('https://wfltluwbiyowxriastwx.supabase.co/functions/v1/join-founders',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name:data.get('Nombre'),email:data.get('email'),phone:data.get('Telefono'),
+        municipio:data.get('Municipio'),referral_source:data.get('Como nos encontraste'),
+        website:data.get('_honey')||''
+      })
+    }).catch(function(){});
     fetch('https://formsubmit.co/ajax/admin@lavaritapr.com',{method:'POST',headers:{'Accept':'application/json'},body:data})
       .then(function(r){return r.json();})
       .then(function(){
